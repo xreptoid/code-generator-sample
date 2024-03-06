@@ -23,6 +23,7 @@ export async function GET(request) {
 
         const session = await getIronSession(cookies(), { password: process.env.IRON_SESSION_PASSWORD, cookieName: "session" });
         session.accountId = accountId
+        session.email = email
         await session.save()
 
         redirect(redirectUri || '/')

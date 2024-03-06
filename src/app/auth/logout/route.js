@@ -10,7 +10,8 @@ export async function GET(request) {
         redirect('/')
     }
     const session = await getIronSession(cookies(), { password: process.env.IRON_SESSION_PASSWORD, cookieName: 'session' })
-    session.sid = undefined
+    session.accountId = undefined
+    session.email = undefined
     await session.save()
     redirect('/auth/logout?step=1')
 }

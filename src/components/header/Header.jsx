@@ -11,20 +11,12 @@ const firaCode = Fira_Code({ subsets: ['latin'], weight: '500' })
 export default function Header({ username, currentUser, projectName, page }) {
 
   const renderDashboardNav = () => {
-    if (page !== 'landing') {
-      return <></>
-    }
     return <div className="inline-block">
-      <a
+      <div className='inline-block ml-20'>|</div>
+      <Link
         href="/dashboard"
-        style={{
-          fontSize: '12pt',
-          fontWeight: '600',
-          color: '#000',
-          textDecoration: page === 'dashboard' ? 'underline' : 'none',
-          marginRight: '30px'
-        }}
-      >Dashboard</a>
+        className="ml-10 font-bold"
+      >Dashboard</Link>
     </div>
   }
 
