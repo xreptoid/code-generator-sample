@@ -29,15 +29,15 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { toast } from "@/components/ui/use-toast"
+import { useState } from "react"
 
 const FormSchema = z.object({
-  language: z.string({
+  repo: z.string({
     required_error: "Please select a repository.",
   }),
 })
 
 export default function ImportRepoForm({ repos }) {
-  const languages = repos
   const form = useForm({
     resolver: zodResolver(FormSchema),
   })
@@ -51,18 +51,29 @@ export default function ImportRepoForm({ repos }) {
         </pre>
       ),
     })
+    fetch('/api/github/clone', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        repoPath: data.repo
+      })
+    }).then(() => {
+      window.location = ''
+    })
   }
+
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false)
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <FormField
           control={form.control}
-          name="language"
+          name="repo"
           render={({ field }) => (
             <FormItem className="flex flex-col">
               <FormLabel></FormLabel>
-              <Popover>
+              <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
                 <PopoverTrigger asChild>
                   <FormControl>
                     <Button
@@ -73,9 +84,9 @@ export default function ImportRepoForm({ repos }) {
                         !field.value && "text-muted-foreground"
                       )}
                     >
-                      {field.value
-                        ? languages.find(
-                            (language) => language.value === field.value
+                       {field.value
+                        ? repos.find(
+                            (repo) => repo.value === field.value
                           )?.label
                         : "Select repository"}
                       <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -90,19 +101,20 @@ export default function ImportRepoForm({ repos }) {
                     />
                     <CommandEmpty>No repository found.</CommandEmpty>
                     <CommandGroup>
-                      {languages.map((language) => (
+                      {repos.map((repo) => (
                         <CommandItem
-                          value={language.label}
-                          key={language.value}
+                          value={repo.label}
+                          key={repo.value}
                           onSelect={() => {
-                            form.setValue("language", language.value)
+                            form.setValue("repo", repo.value)
+                            setIsPopoverOpen(false)
                           }}
                         >
-                          {language.label}
+                          {repo.label}
                           <CheckIcon
                             className={cn(
                               "ml-auto h-4 w-4",
-                              language.value === field.value
+                              repo.value === field.value
                                 ? "opacity-100"
                                 : "opacity-0"
                             )}

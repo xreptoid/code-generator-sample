@@ -1,9 +1,4 @@
-import Reptoid from '@reptoid/codebases'
-
-const reptoid = new Reptoid({
-    apiHost: 'http://localhost:3010',
-    accessToken: process.env.REPTOID_ACCESS_TOKEN
-})
+import reptoid from "@/lib/reptoid"
 
 export async function POST(request) {
     const { filePath, content } = await request.json()

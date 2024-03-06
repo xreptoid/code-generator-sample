@@ -4,12 +4,12 @@ import ImportRepoForm from "./components/ImportRepoForm"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import reptoid from "@/lib/reptoid"
-import { getCurrentAccountId } from "@/lib/session"
+import { getCurrentAccount } from "@/lib/session"
 
 export const dynamic = 'force-dynamic'
 
 export default async function Page() {
-    const accountId = await getCurrentAccountId()
+    const { accountId, email } = await getCurrentAccount()
     const repos = await reptoid.account(accountId).github().repos()
     const workspaces = await reptoid.account(accountId).workspaces().all()
 
@@ -35,6 +35,11 @@ export default async function Page() {
         </div>
         <div className={cn("text-xl font-bold")}>Import GitHub repository</div>
         <div className="mt-4">
+            <a
+                href="https://github.com/apps/crossbow-local2/installations/select_target"
+                target="_blank"
+                className="underline text-blue-900 mb-4"
+            >Add permissions</a>
             <ImportRepoForm repos={repos.map(repo => ({ label: repo, value: repo }))}/>
         </div>
         <div className="text-xl font-bold mt-10">Workspaces</div>
