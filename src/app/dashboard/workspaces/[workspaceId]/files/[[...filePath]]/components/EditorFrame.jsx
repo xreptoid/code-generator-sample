@@ -102,7 +102,6 @@ export default function EditorFrame(props) {
       return <h3>is folder</h3>
     }
     return <div>
-      {renderIsNew()}
       <div>
         {isSaving ? 'saving...' : ''}
       </div>
@@ -111,7 +110,7 @@ export default function EditorFrame(props) {
   }
 
   return <>
-    <div className="main-window">
+    <div className="">
       <div>
       </div>
       <div>

@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@media (min-width: 640px) {
+  .main-header-links {
+    padding-left: 100px;
+  }
+
+  .main-window {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .main-header-links {
+    padding-left: 100px;
+  }
+
+  .main-window {
+    padding-left: 400px;
+    padding-right: 400px;
+  }
+}
