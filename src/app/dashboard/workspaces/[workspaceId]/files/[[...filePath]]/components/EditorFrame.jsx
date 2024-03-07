@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Editor from "./Editor";
 
 export default function EditorFrame(props) {
-  const { fileData, filePath, frameworks, gitData } = props
+  const { fileData, filePath, workspaceId } = props
   const { isFile, exists } = fileData
 
   const [editorContent, setEditorContent] = useState(fileData.content)
@@ -17,7 +17,7 @@ export default function EditorFrame(props) {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ filePath, content: newEditorContent })
+      body: JSON.stringify({  workspaceId, filePath, content: newEditorContent })
     }).then(resp => {
       //window.location = ''
     })
@@ -103,7 +103,7 @@ export default function EditorFrame(props) {
     }
     return <div>
       <div>
-        {isSaving ? 'saving...' : ''}
+        {isSaving ? 'saving...' : <br/>}
       </div>
       {renderEditor()}
     </div>

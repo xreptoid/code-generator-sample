@@ -16,7 +16,7 @@ export default async function Page({ params }) {
         </div>
         {
             fileOrFolderData.type === "file"
-                ? <EditorFrame filePath={filePath} fileData={fileOrFolderData} />
+                ? <EditorFrame workspaceId={params.workspaceId} filePath={filePath} fileData={fileOrFolderData} />
                 : <FolderFrame workspaceId={params.workspaceId} path={filePath} folderData={fileOrFolderData}/>
         }
     </>
