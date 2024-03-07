@@ -1,6 +1,7 @@
+import reptoid from "@/lib/reptoid"
 import Link from "next/link"
 
-export default function Layout({ params, children }) {
+export default async function Layout({ params, children }) {
     const { workspaceId } = params
     return <>
         <div className="text-3xl font-bold">Workspace: {workspaceId}</div>
