@@ -6,6 +6,7 @@ import Image from "next/image"
 import reptoid from "@/lib/reptoid"
 import { getCurrentAccount } from "@/lib/session"
 import Link from "next/link"
+import NewWorkspaceForm from "./components/NewWorkspaceForm"
 
 export const dynamic = 'force-dynamic'
 
@@ -38,9 +39,7 @@ export default async function Page() {
         </div>
         <div className="text-xl font-bold mt-10">Workspaces</div>
         <div className="mt-4">
-            <form action={create}>
-                <Button>Create New</Button>
-            </form>
+            <NewWorkspaceForm/>
         </div>
         <div className="mt-6">
             {workspaces.map(workspace => (
@@ -49,9 +48,9 @@ export default async function Page() {
                         <div className="flex-auto">
                             <Link
                                 href={`/dashboard/workspaces/${workspace.workspaceId}`}
-                                className="hover:underline"
+                                className="hover:underline font-bold"
                             >
-                                {workspace.workspaceId}
+                                {workspace.meta.name}
                             </Link>
                         </div>
                         <form action={remove}>
